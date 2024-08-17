@@ -78,7 +78,7 @@ defmodule Fool.MixProject do
       "assets.build": ["tailwind fool", "esbuild fool"],
       "assets.deploy": [
         "tailwind fool --minify",
-        "esbuild fool --minify",
+        "esbuild fool --minify --loader:.ttf=file --loader:.woff=file --loader:.woff2=file",
         "phx.digest"
       ]
     ]

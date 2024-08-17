@@ -25,7 +25,12 @@ config :fool, FoolWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "csTKK2hSgbBsRjJUpCtUPPqYhmoJbOi5WwWg+XHINbIKq1odU2I7jZU5Pcqvp6wQ",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:fool, ~w(--sourcemap=inline --watch)]},
+    esbuild:
+      {Esbuild, :install_and_run,
+       [
+         :fool,
+         ~w(--sourcemap=inline --watch --loader:.ttf=file --loader:.woff=file --loader:.woff2=file)
+       ]},
     tailwind: {Tailwind, :install_and_run, [:fool, ~w(--watch)]}
   ]
 
