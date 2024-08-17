@@ -1,3 +1,3 @@
-import NovelTailwind from "./novel-tailwind";
+import Novel from "./novel";
 
-export default { NovelTailwind };
+export default { Novel };

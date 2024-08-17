@@ -1,20 +1,19 @@
-import { cn } from "../../../lib/utils";
 import React from "react";
-import { EditorBubbleItem, useEditor } from "novel";
+import { Button } from "../ui/button";
+import { cn } from "../lib/utils";
 import {
   BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-  StrikethroughIcon,
   CodeIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
 } from "lucide-react";
+import { EditorBubbleItem, useEditor } from "novel";
 import type { SelectorItem } from "./node-selector";
-import { Button } from "../../ui/button";
 
 export const TextButtons = () => {
   const { editor } = useEditor();
   if (!editor) return null;
-
   const items: SelectorItem[] = [
     {
       name: "bold",
@@ -47,12 +46,11 @@ export const TextButtons = () => {
       icon: CodeIcon,
     },
   ];
-
   return (
     <div className="flex">
-      {items.map((item, index) => (
+      {items.map((item) => (
         <EditorBubbleItem
-          key={index}
+          key={item.name}
           onSelect={(editor) => {
             item.command(editor);
           }}

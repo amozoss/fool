@@ -17,5 +17,4 @@ defmodule FoolWeb.PageLive.Show do
   end
 
   defp page_title(:show), do: "Show Page"
-  defp page_title(:edit), do: "Edit Page"
 end

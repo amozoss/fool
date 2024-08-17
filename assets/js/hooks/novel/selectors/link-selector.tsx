@@ -1,22 +1,17 @@
-import { cn } from "../../../lib/utils";
 import React from "react";
-import { useEditor } from "novel";
+import { Button } from "../ui/button";
+import { PopoverContent } from "../ui/popover";
+import { cn } from "../lib/utils";
+import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { Check, Trash } from "lucide-react";
-import {
-  type Dispatch,
-  type FC,
-  type SetStateAction,
-  useEffect,
-  useRef,
-} from "react";
-import { Button } from "../../ui/button";
-import { PopoverContent, Popover, PopoverTrigger } from "../../ui/popover";
+import { useEditor } from "novel";
+import { useEffect, useRef } from "react";
 
 export function isValidUrl(url: string) {
   try {
     new URL(url);
     return true;
-  } catch (e) {
+  } catch (_e) {
     return false;
   }
 }
@@ -26,7 +21,7 @@ export function getUrlFromString(str: string) {
     if (str.includes(".") && !str.includes(" ")) {
       return new URL(`https://${str}`).toString();
     }
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -41,7 +36,7 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
 
   // Autofocus on input by default
   useEffect(() => {
-    inputRef.current && inputRef.current?.focus();
+    inputRef.current?.focus();
   });
   if (!editor) return null;
 
@@ -92,6 +87,7 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
               className="flex h-8 items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
               onClick={() => {
                 editor.chain().focus().unsetLink().run();
+                inputRef.current.value = "";
                 onOpenChange(false);
               }}
             >

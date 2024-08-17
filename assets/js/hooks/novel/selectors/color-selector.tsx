@@ -1,10 +1,9 @@
-import { Check, ChevronDown } from "lucide-react";
 import React from "react";
+import { Check, ChevronDown } from "lucide-react";
 import { EditorBubbleItem, useEditor } from "novel";
 
-import { PopoverTrigger, Popover, PopoverContent } from "../../ui/popover";
-import { Button } from "../../ui/button";
-
+import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 export interface BubbleColorMenuItem {
   name: string;
   color: string;
@@ -131,9 +130,9 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
           <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">
             Color
           </div>
-          {TEXT_COLORS.map(({ name, color }, index) => (
+          {TEXT_COLORS.map(({ name, color }) => (
             <EditorBubbleItem
-              key={index}
+              key={name}
               onSelect={() => {
                 editor.commands.unsetColor();
                 name !== "Default" &&
@@ -162,9 +161,9 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
           <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">
             Background
           </div>
-          {HIGHLIGHT_COLORS.map(({ name, color }, index) => (
+          {HIGHLIGHT_COLORS.map(({ name, color }) => (
             <EditorBubbleItem
-              key={index}
+              key={name}
               onSelect={() => {
                 editor.commands.unsetHighlight();
                 name !== "Default" &&

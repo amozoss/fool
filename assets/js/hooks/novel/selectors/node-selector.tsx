@@ -1,28 +1,28 @@
 import React from "react";
 import {
   Check,
+  CheckSquare,
   ChevronDown,
+  Code,
   Heading1,
   Heading2,
   Heading3,
-  TextQuote,
   ListOrdered,
-  TextIcon,
-  Code,
-  CheckSquare,
   type LucideIcon,
+  TextIcon,
+  TextQuote,
 } from "lucide-react";
-import { EditorBubbleItem, EditorInstance, useEditor } from "novel";
+import { EditorBubbleItem, useEditor } from "novel";
 
+import { Button } from "../ui/button";
+import { PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Popover } from "@radix-ui/react-popover";
-import { PopoverContent, PopoverTrigger } from "../../ui/popover";
-import { Button } from "../../ui/button";
 
 export type SelectorItem = {
   name: string;
   icon: LucideIcon;
-  command: (editor: EditorInstance) => void;
-  isActive: (editor: EditorInstance) => boolean;
+  command: (editor: ReturnType<typeof useEditor>["editor"]) => void;
+  isActive: (editor: ReturnType<typeof useEditor>["editor"]) => boolean;
 };
 
 const items: SelectorItem[] = [
@@ -101,7 +101,6 @@ interface NodeSelectorProps {
 export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
   const { editor } = useEditor();
   if (!editor) return null;
-
   const activeItem = items.filter((item) => item.isActive(editor)).pop() ?? {
     name: "Multiple",
   };
@@ -118,9 +117,9 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent sideOffset={5} align="start" className="w-48 p-1">
-        {items.map((item, index) => (
+        {items.map((item) => (
           <EditorBubbleItem
-            key={index}
+            key={item.name}
             onSelect={(editor) => {
               item.command(editor);
               onOpenChange(false);

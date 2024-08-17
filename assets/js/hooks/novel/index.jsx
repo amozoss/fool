@@ -3,7 +3,7 @@ import { lazy } from "react";
 
 import { createRoot } from "react-dom/client";
 
-const Editor = lazy(() => import("./editor"));
+const Editor = lazy(() => import("./advanced-editor"));
 
 export default {
   _rootEl: null,
