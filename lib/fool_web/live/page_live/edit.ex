@@ -20,20 +20,6 @@ defmodule FoolWeb.PageLive.Edit do
 
     ~H"""
     <div>
-      <.live_component
-        module={FoolWeb.PageLive.FormComponent}
-        id={@page.id || :new}
-        title={@page_title}
-        action={@live_action}
-        page={@page}
-        navigate={~p"/pages"}
-        patch={
-          case @live_action do
-            :new -> ~p"/pages/new"
-            :edit -> ~p"/pages/#{@page}/edit"
-          end
-        }
-      />
       <div phx-update="ignore" id="wrapper">
         <div id="novel-editor" phx-hook="Novel"></div>
       </div>

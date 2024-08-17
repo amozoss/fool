@@ -63,18 +63,18 @@ const TailwindAdvancedEditor = () => {
         highlightCodeblocks(editor.getHTML())
       );
       //window.localStorage.setItem("novel-content", JSON.stringify(json));
-      window.localStorage.setItem(
-        "markdown",
-        editor.storage.markdown.getMarkdown()
-      );
+      //  window.localStorage.setItem(
+      //    "markdown",
+      //    editor.storage.markdown.getMarkdown()
+      //  );
       setSaveStatus("Saved");
     },
     500
   );
 
   useEffect(() => {
-    const content = window.localStorage.getItem("novel-content");
-    if (content) setInitialContent(JSON.parse(content));
+    const content = window.localStorage.getItem("html-content");
+    if (content) setInitialContent(content);
     else setInitialContent(defaultEditorContent);
   }, []);
 
