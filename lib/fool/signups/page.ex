@@ -5,6 +5,7 @@ defmodule Fool.Signups.Page do
   schema "pages" do
     field :description, :string
     field :title, :string
+    field :html, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -12,7 +13,7 @@ defmodule Fool.Signups.Page do
   @doc false
   def changeset(page, attrs) do
     page
-    |> cast(attrs, [:title, :description])
+    |> cast(attrs, [:title, :description, :html])
     |> validate_required([:title, :description])
   end
 end

@@ -5,8 +5,8 @@ defmodule FoolWeb.PageLive.Edit do
   alias Fool.Signups.Page
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(%{"id" => id}, _session, socket) do
+    {:ok, assign(socket, id: id)}
   end
 
   @impl true
@@ -26,6 +26,19 @@ defmodule FoolWeb.PageLive.Edit do
       <.back navigate={~p"/pages"}>Back to pages</.back>
     </div>
     """
+  end
+
+  @impl true
+  def handle_event("editor-update", %{"html" => html}, socket) do
+    page = Signups.get_page!(socket.assigns.id)
+    {:ok, _} = Signups.update_page(page, %{html: html})
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("editor-html", _, socket) do
+    page = Signups.get_page!(socket.assigns.id)
+    {:reply, %{html: page.html}, socket}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do

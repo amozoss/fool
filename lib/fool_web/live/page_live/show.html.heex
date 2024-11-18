@@ -11,6 +11,8 @@
 <.list>
   <:item title="Title"><%= @page.title %></:item>
   <:item title="Description"><%= @page.description %></:item>
+  <:item title="Html"><%= @page.html %></:item>
 </.list>
+<%= raw(@page.html) %>
 
 <.back navigate={~p"/pages"}>Back to pages</.back>

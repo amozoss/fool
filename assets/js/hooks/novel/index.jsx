@@ -13,11 +13,15 @@ export default {
     const rootEl = document.getElementById(this.el.id);
     this._rootEl = createRoot(rootEl);
 
-    this.render([]); // render component with empty data
-
-    this.handleEvent("employee:updated", ({ items }) => {
-      this.render(JSON.parse(items));
+    this.pushEvent("editor-html", {}, (reply, ref) => {
+      this.render(reply.html); // render component with empty data
     });
+  },
+
+  update() {
+    if (this._rootEl) {
+      render(this._rootEl);
+    }
   },
 
   destroyed() {
@@ -25,10 +29,10 @@ export default {
     this._rootEl.unmount();
   },
 
-  render(items) {
+  render(html) {
     this._rootEl.render(
       <React.StrictMode>
-        <Editor />
+        <Editor content={html} pushEvent={this.pushEvent.bind(this)} />
       </React.StrictMode>
     );
   },

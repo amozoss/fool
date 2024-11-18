@@ -32,7 +32,7 @@ const hljs = require("highlight.js");
 
 const extensions = [...defaultExtensions, slashCommand];
 
-const TailwindAdvancedEditor = () => {
+const TailwindAdvancedEditor = ({ content, pushEvent }) => {
   const [initialContent, setInitialContent] = useState<null | JSONContent>(
     null
   );
@@ -58,6 +58,10 @@ const TailwindAdvancedEditor = () => {
   const debouncedUpdates = useDebouncedCallback(
     async (editor: EditorInstance) => {
       //const json = editor.getJSON();
+      const html = editor.getHTML();
+      pushEvent("editor-update", { html }, (reply, ref) => {
+        setSaveStatus("Saved");
+      });
       setCharsCount(editor.storage.characterCount.words());
       window.localStorage.setItem(
         "html-content",
@@ -68,18 +72,17 @@ const TailwindAdvancedEditor = () => {
       //    "markdown",
       //    editor.storage.markdown.getMarkdown()
       //  );
-      setSaveStatus("Saved");
     },
     500
   );
 
-  useEffect(() => {
-    const content = window.localStorage.getItem("html-content");
-    if (content) setInitialContent(content);
-    else setInitialContent(defaultEditorContent);
-  }, []);
+  // useEffect(() => {
+  //   const content = window.localStorage.getItem("html-content");
+  //   if (content) setInitialContent(content);
+  //   else setInitialContent(defaultEditorContent);
+  // }, []);
 
-  if (!initialContent) return null;
+  //if (!initialContent) return null;
 
   return (
     <div className="relative w-full max-w-screen-lg">
@@ -100,7 +103,7 @@ const TailwindAdvancedEditor = () => {
       <EditorRoot>
         <div className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg">
           <EditorProvider
-            content={initialContent}
+            content={content}
             extensions={extensions}
             editorProps={{
               handleDOMEvents: {
@@ -112,7 +115,7 @@ const TailwindAdvancedEditor = () => {
                 handleImageDrop(view, event, moved, uploadFn),
               attributes: {
                 class:
-                  "prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full",
+                  "prose prose-lg prose-headings:font-title font-default focus:outline-none max-w-full",
               },
             }}
             onUpdate={({ editor }) => {
