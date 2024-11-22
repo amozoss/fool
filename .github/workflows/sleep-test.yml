@@ -1,0 +1,15 @@
+name: Sleep and Pass Workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 10 seconds
+        run: sleep 10
+
+      - name: Pass the workflow
+        run: exit 0
